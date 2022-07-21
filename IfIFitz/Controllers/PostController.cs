@@ -20,5 +20,16 @@ namespace IfIFitz.Controllers
         {
             return Ok(_postRepo.GetAllPosts());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var post = _postRepo.GetPostById(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
     }
 }
