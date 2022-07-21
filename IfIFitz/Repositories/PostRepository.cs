@@ -126,5 +126,29 @@ namespace IfIFitz.Repositories
                 }
             }
         }
+
+        public void AddPost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (UserProfileId, Title, Description, ImageLocation, CreatedDateTime, SizeId, MaterialId)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@UserProfileId, @Title, @Description, @ImageLocation, @CreatedDateTime, @SizeId, @MaterialId)";
+                    DbUtils.AddParameter(cmd, "@UserProfileId", post.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Description", post.Description);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@CreatedDateTime", post.CreatedDateTime);
+                    DbUtils.AddParameter(cmd, "@SizeId", post.SizeId);
+                    DbUtils.AddParameter(cmd, "@MaterialId", post.MaterialId);
+
+                    int Id = (int)cmd.ExecuteScalar();
+                    post.Id = Id;
+                }
+            }
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace IfIFitz.Repositories
     {
         List<Post> GetAllPosts();
         Post GetPostById(int id);
+        void AddPost(Post post);
     }
 }
