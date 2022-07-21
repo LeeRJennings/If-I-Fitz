@@ -21,9 +21,11 @@ namespace IfIFitz.Models
 
         [Required]
         public DateTime CreatedDateTime { get; set; }
- 
+
+        [Required]
         public int SizeId { get; set; }
- 
+
+        [Required]
         public int MaterialId { get; set; }
 
         public UserProfile UserProfile { get; set; }

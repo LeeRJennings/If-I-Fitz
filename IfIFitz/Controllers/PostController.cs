@@ -1,18 +1,25 @@
-﻿using IfIFitz.Repositories;
+﻿using IfIFitz.Models;
+using IfIFitz.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Security.Claims;
 
 namespace IfIFitz.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepo;
+        private readonly IUserProfileRepository _userProfileRepo;
 
-        public PostController(IPostRepository postRepo)
+        public PostController(IPostRepository postRepo, IUserProfileRepository userProfileRepo)
         {
             _postRepo = postRepo;
+            _userProfileRepo = userProfileRepo;
         }
 
         [HttpGet]
@@ -30,6 +37,22 @@ namespace IfIFitz.Controllers
                 return NotFound();
             }
             return Ok(post);
+        }
+
+        [HttpPost]
+        public IActionResult Post(Post post)
+        {
+            UserProfile currentUser = GetCurrentUserProfile();
+            post.UserProfileId = currentUser.Id;
+            post.CreatedDateTime = DateTime.Now;
+            _postRepo.AddPost(post);
+            return Ok(post);
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepo.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }
