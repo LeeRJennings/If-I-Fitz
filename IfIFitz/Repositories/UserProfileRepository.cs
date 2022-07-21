@@ -53,17 +53,15 @@ namespace IfIFitz.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, First, 
-                                                                 Email, ImageLocation, IsActive)
+                    cmd.CommandText = @"INSERT INTO UserProfile (FirebaseUserId, Name, Email, ImageLocation, IsActive)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@FirebaseUserId, @FirstName, @LastName, @DisplayName, 
-                                                @Email, @CreateDateTime, @ImageLocation, @UserTypeId)";
+                                        VALUES (@FirebaseUserId, @Name, @Email, @ImageLocation, @IsActive)";
 
                     DbUtils.AddParameter(cmd, "@FirebaseUserId", userProfile.FirebaseUserId);
-                    DbUtils.AddParameter(cmd, "@FirstName", userProfile.Name);
+                    DbUtils.AddParameter(cmd, "@Name", userProfile.Name);
                     DbUtils.AddParameter(cmd, "@Email", userProfile.Email);
                     DbUtils.AddParameter(cmd, "@ImageLocation", userProfile.ImageLocation);
-                    DbUtils.AddParameter(cmd, "@UserTypeId", userProfile.IsActive);
+                    DbUtils.AddParameter(cmd, "@IsActive", userProfile.IsActive);
 
                     userProfile.Id = (int)cmd.ExecuteScalar();
                 }
