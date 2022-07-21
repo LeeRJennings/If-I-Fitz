@@ -145,8 +145,7 @@ namespace IfIFitz.Repositories
                     DbUtils.AddParameter(cmd, "@SizeId", post.SizeId);
                     DbUtils.AddParameter(cmd, "@MaterialId", post.MaterialId);
 
-                    int Id = (int)cmd.ExecuteScalar();
-                    post.Id = Id;
+                    post.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }
