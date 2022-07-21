@@ -145,8 +145,33 @@ namespace IfIFitz.Repositories
                     DbUtils.AddParameter(cmd, "@SizeId", post.SizeId);
                     DbUtils.AddParameter(cmd, "@MaterialId", post.MaterialId);
 
-                    int Id = (int)cmd.ExecuteScalar();
-                    post.Id = Id;
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void UpdatePost(Post post)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Post
+                                        SET Title = @Title,
+                                            Description = @Description,
+                                            ImageLocation = @ImageLocation,
+                                            SizeId = @SizeId,
+                                            MaterialId = @MaterialId
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Title", post.Title);
+                    DbUtils.AddParameter(cmd, "@Description", post.Description);
+                    DbUtils.AddParameter(cmd, "@ImageLocation", post.ImageLocation);
+                    DbUtils.AddParameter(cmd, "@SizeId", post.SizeId);
+                    DbUtils.AddParameter(cmd, "@MaterialId", post.MaterialId);
+                    DbUtils.AddParameter(cmd, "@Id", post.Id);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

@@ -49,6 +49,18 @@ namespace IfIFitz.Controllers
             return Ok(post);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Post post)
+        {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
+            _postRepo.UpdatePost(post);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
