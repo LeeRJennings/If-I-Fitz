@@ -10,5 +10,6 @@ namespace IfIFitz.Repositories
         void AddPost(Post post);
         void UpdatePost(Post post);
         void DeletePost(int id);
+        List<Post> GetPostsByUserId(int id);
     }
 }

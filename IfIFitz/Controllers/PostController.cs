@@ -68,6 +68,12 @@ namespace IfIFitz.Controllers
             return NoContent();
         }
 
+        [HttpGet("User/{id}")]
+        public IActionResult GetByUserId(int id)
+        {
+            return Ok(_postRepo.GetPostsByUserId(id));
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
