@@ -12,5 +12,6 @@ namespace IfIFitz.Repositories
         void DeletePost(int id);
         List<Post> GetPostsByUserId(int id);
         List<Post> GetUsersFavoritedPosts(int id);
+        void AddFavorite(int userProfileId, int postId);
     }
 }

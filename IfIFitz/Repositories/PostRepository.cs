@@ -313,5 +313,22 @@ namespace IfIFitz.Repositories
                 }
             }
         }
+
+        public void AddFavorite(int userProfileId, int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Favorite (UserProfileId, PostId)
+                                        VALUES (@userProfileId, @postId)";
+                    DbUtils.AddParameter(cmd, "@userProfileId", userProfileId);
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -40,9 +40,9 @@ CREATE TABLE [Post] (
 GO
 
 CREATE TABLE [Favorite] (
-  [Id] int PRIMARY KEY IDENTITY(1, 1),
   [UserProfileId] int NOT NULL,
-  [PostId] int NOT NULL
+  [PostId] int NOT NULL,
+  PRIMARY KEY (UserProfileId, PostId)
 )
 GO
 
