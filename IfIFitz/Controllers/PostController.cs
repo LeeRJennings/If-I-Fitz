@@ -52,6 +52,12 @@ namespace IfIFitz.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, Post post)
         {
+            var currentUser = GetCurrentUserProfile();
+            if (post.UserProfileId != currentUser.Id)
+            {
+                return BadRequest();
+            }
+
             if (id != post.Id)
             {
                 return BadRequest();
@@ -64,6 +70,13 @@ namespace IfIFitz.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            var currentPost = _postRepo.GetPostById(id);
+            var currentUser = GetCurrentUserProfile();
+            if (currentPost.UserProfileId != currentUser.Id)
+            {
+                return BadRequest();
+            }
+
             _postRepo.DeletePost(id);
             return NoContent();
         }
@@ -72,6 +85,12 @@ namespace IfIFitz.Controllers
         public IActionResult GetByUserId(int id)
         {
             return Ok(_postRepo.GetPostsByUserId(id));
+        }
+
+        [HttpGet("Favorite/{id}")]
+        public IActionResult GetUsersFavoritedPosts(int id)
+        {
+            return Ok(_postRepo.GetUsersFavoritedPosts(id));
         }
 
         private UserProfile GetCurrentUserProfile()
