@@ -119,6 +119,22 @@ namespace IfIFitz.Controllers
 
         }
 
+        [HttpDelete("Favorite/{id}")]
+        public IActionResult DeleteFavorite(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            try
+            {
+                _postRepo.DeleteFavorite(currentUser.Id, id);
+                return NoContent();
+            }
+            catch (SqlException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
