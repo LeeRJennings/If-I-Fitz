@@ -330,5 +330,22 @@ namespace IfIFitz.Repositories
                 }
             }
         }
+
+        public void DeleteFavorite(int userProfileId, int postId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM Favorite
+                                        WHERE UserProfileId = @userProfileId AND PostId = @postId";
+                    DbUtils.AddParameter(cmd, "@userProfileId", userProfileId);
+                    DbUtils.AddParameter(cmd, "@postId", postId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
