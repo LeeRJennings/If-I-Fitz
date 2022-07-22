@@ -3,7 +3,9 @@ using IfIFitz.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace IfIFitz.Controllers
@@ -53,6 +55,7 @@ namespace IfIFitz.Controllers
         public IActionResult Put(int id, Post post)
         {
             var currentUser = GetCurrentUserProfile();
+            
             if (post.UserProfileId != currentUser.Id)
             {
                 return BadRequest();
@@ -91,6 +94,29 @@ namespace IfIFitz.Controllers
         public IActionResult GetUsersFavoritedPosts(int id)
         {
             return Ok(_postRepo.GetUsersFavoritedPosts(id));
+        }
+
+        [HttpPost("Favorite/{id}")]
+        public IActionResult PostFavorite(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+            var currentPost = _postRepo.GetPostById(id);
+            
+            if (currentUser.Id == currentPost.UserProfileId)
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                _postRepo.AddFavorite(currentUser.Id, id);
+                return NoContent();
+            }
+            catch(SqlException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         private UserProfile GetCurrentUserProfile()

@@ -35,10 +35,8 @@ VALUES
 (3, 2, 'Not all good boxes are cardboard', 'This box/basket is DOPE!! Gotta give that wicker a shot if you know what''s up.', 'https://res.cloudinary.com/leerjennings/image/upload/v1658327561/IfIFitz/Paul/Paul2_cd3uq6.jpg', '2022-07-20', 3, 5)
 set identity_insert [Post] off;
 
-set identity_insert [Favorite] on;
-INSERT INTO "Favorite" ("Id", "UserProfileId", "PostId")
+INSERT INTO "Favorite" ("UserProfileId", "PostId")
 VALUES
-(1, 1, 3),
-(2, 2, 2),
-(3, 3, 1)
-set identity_insert [Favorite] off;
+(1, 3),
+(2, 2),
+(3, 1)
