@@ -19,7 +19,7 @@ export const PostList = () => {
 
     return (
         <>
-        <Button className="btn btn-success" onClick={() =>navigate("/create")}>Add Post</Button>
+        <Button color="success" size="lg" onClick={() =>navigate("/create")}>Add Post</Button>
         <Row>
         {posts.map((post) => (
             <Post post={post} key={post.id} />

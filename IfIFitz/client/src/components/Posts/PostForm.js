@@ -1,9 +1,107 @@
+import { useState, useEffect, useCallback } from "react"
+import { addPost } from "../../modules/postManager"
+import { getAllMaterials } from "../../modules/materialManager"
+import { getAllSizes } from "../../modules/sizeManager"
+import { useNavigate } from "react-router-dom"
+import { Button,Form,FormGroup,Input,Label } from 'reactstrap';
 
 
 export const PostForm = () => {
-    
+    const [isLoading, setIsLoading] = useState(true)
+    const [materials, setMaterials] = useState([])
+    const [sizes, setSizes] = useState([])
+    const [post, setPost] = useState({
+        title: "",
+        imageLocation: "",
+        sizeId: 0,
+        materialId: 0,
+        description: ""
+    })
+
+    const navigate = useNavigate()
+
+    const handleFieldChange = (e) => {
+        const newPost = {...post}
+        let selectedVal = e.target.value
+        newPost[e.target.id] = selectedVal
+        setPost(newPost)
+    }
+
+    const handleClickSave = () => {
+        if (post.title === "" || post.sizeId === 0 || post.materialId === 0 || post.description === "") {
+            window.alert("All fields except Image URL are required")
+        } else {
+            setIsLoading(true)
+            addPost(post)
+            .then(() => navigate("/"))
+        }
+    }
+
+    useEffect(() => {
+        getAllMaterials()
+        .then(m => {
+            setMaterials(m)
+        })
+        getAllSizes()
+        .then(s => {
+            setSizes(s)
+        })
+        setIsLoading(false)
+    }, [])
     
     return (
-        <p>pst pst pst</p>
+        <Form>
+            <FormGroup>
+                <Label for="title">Title:</Label>
+                <Input type="text" 
+                        name="title" 
+                        id="title"
+                        onChange={handleFieldChange}
+                        value={post.title}
+                        placeholder="Post Title" />
+            </FormGroup>
+            <FormGroup>
+                <Label for="imageLocation">Image URL:</Label>
+                <Input type="text" 
+                        name="imageLocation" 
+                        id="imageLocation"
+                        onChange={handleFieldChange}
+                        value={post.imageLocation}
+                        placeholder="www.website.com" />
+            </FormGroup>
+            <FormGroup>
+                <Label for="size">Size:</Label><br/>
+                <select value={post.sizeId} name="size" id="sizeId" form="categoryForm" onChange={handleFieldChange}>
+                <option value="0">Select a Size</option>
+                {sizes.map(s => (
+                    <option key={s.id} value={s.id}>
+                    {s.name}
+                    </option>
+                ))}
+                </select>
+            </FormGroup>
+            <FormGroup>
+                <Label for="material">Material:</Label><br/>
+                <select value={post.materialId} name="material" id="materialId" form="categoryForm" onChange={handleFieldChange}>
+                <option value="0">Select a Material</option>
+                {materials.map(m => (
+                    <option key={m.id} value={m.id}>
+                    {m.type}
+                    </option>
+                ))}
+                </select>
+            </FormGroup>
+            <FormGroup>
+                <Label for="description">Description:</Label>
+                <Input type="textarea" 
+                        name="description" 
+                        id="description"
+                        onChange={handleFieldChange}
+                        value={post.description}
+                        placeholder="Describe your post here..." />
+            </FormGroup>
+            <Button color="success" onClick={() => handleClickSave()} disabled={isLoading}>Add Post</Button>
+            <Button onClick={() => navigate(-1)}>Cancel</Button>
+        </Form>
     )
 }
