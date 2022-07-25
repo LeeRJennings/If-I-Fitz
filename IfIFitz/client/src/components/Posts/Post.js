@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { addFavorite } from "../../modules/postManager";
 
 export const Post = ({ post, user }) => {
     const navigate = useNavigate()
+
+    const handleClickFavorite = (id) => {
+        addFavorite(id)
+    }
 
     return (
         <Card color="light" style={{width: '20rem'}}>
@@ -30,7 +35,9 @@ export const Post = ({ post, user }) => {
                     <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
                     <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
                     </>
-                : ""}
+                :   <>
+                    <Button color="info" onClick={() => handleClickFavorite(post.id)}>I Sitz</Button>
+                    </>}
             </CardBody>
         </Card>
     )
