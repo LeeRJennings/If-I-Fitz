@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { addPost } from "../../modules/postManager"
 import { getAllMaterials } from "../../modules/materialManager"
 import { getAllSizes } from "../../modules/sizeManager"
@@ -33,7 +33,7 @@ export const PostForm = () => {
         } else {
             setIsLoading(true)
             addPost(post)
-            .then(() => navigate("/"))
+            .then(() => navigate("/posts"))
         }
     }
 
