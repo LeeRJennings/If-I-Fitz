@@ -5,6 +5,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 
 export const Post = ({ post }) => {
+    const navigate = useNavigate()
+
     return (
         <Card color="light" style={{width: '20rem'}}>
             <CardBody>
@@ -23,6 +25,7 @@ export const Post = ({ post }) => {
                 <CardText>
                     {post.description}
                 </CardText>
+                <Button color="primary" onClick={() => navigate(`/edit/${post.id}`)}>Edit</Button>
             </CardBody>
         </Card>
     )

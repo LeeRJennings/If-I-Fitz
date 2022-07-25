@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react"
-import { addPost } from "../../modules/postManager"
+import { updatePost, getPostById } from "../../modules/postManager"
 import { getAllMaterials } from "../../modules/materialManager"
 import { getAllSizes } from "../../modules/sizeManager"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Button,Form,FormGroup,Input,Label } from 'reactstrap';
 
 
-export const PostForm = () => {
+export const PostEdit = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [materials, setMaterials] = useState([])
     const [sizes, setSizes] = useState([])
@@ -19,6 +19,14 @@ export const PostForm = () => {
     })
 
     const navigate = useNavigate()
+    const {id} = useParams()
+
+    const getPost = () => {
+        getPostById(id)
+        .then(post => {
+            setPost(post)
+        })
+    }
 
     const handleFieldChange = (e) => {
         const newPost = {...post}
@@ -32,12 +40,15 @@ export const PostForm = () => {
             window.alert("All fields except Image URL are required")
         } else {
             setIsLoading(true)
-            addPost(post)
+            const newPost = {...post}
+            delete newPost.userProfile
+            updatePost(newPost)
             .then(() => navigate("/"))
         }
     }
 
     useEffect(() => {
+        getPost()
         getAllMaterials()
         .then(m => {
             setMaterials(m)
@@ -100,7 +111,7 @@ export const PostForm = () => {
                         value={post.description}
                         placeholder="Describe your post here..." />
             </FormGroup>
-            <Button color="success" onClick={() => handleClickSave()} disabled={isLoading}>Add Post</Button>
+            <Button color="primary" onClick={() => handleClickSave()} disabled={isLoading}>Save Edits</Button>
             <Button onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
