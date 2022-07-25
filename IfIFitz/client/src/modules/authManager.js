@@ -3,6 +3,8 @@ import "firebase/auth";
 
 const _apiUrl = "/api/userprofile";
 
+export const getToken = () => firebase.auth().currentUser.getIdToken();
+
 const _doesUserExist = (firebaseUserId) => {
   return getToken().then((token) =>
     fetch(`${_apiUrl}/DoesUserExist/${firebaseUserId}`, {
@@ -12,6 +14,7 @@ const _doesUserExist = (firebaseUserId) => {
       }
     }).then(resp => resp.ok));
 };
+
 
 const _saveUser = (userProfile) => {
   return getToken().then((token) =>
@@ -24,10 +27,6 @@ const _saveUser = (userProfile) => {
       body: JSON.stringify(userProfile)
     }).then(resp => resp.json()));
 };
-
-
-
-export const getToken = () => firebase.auth().currentUser.getIdToken();
 
 
 export const login = (email, pw) => {
@@ -67,3 +66,21 @@ export const onLoginStatusChange = (onLoginStatusChangeHandler) => {
     onLoginStatusChangeHandler(!!user);
   });
 };
+
+
+export const getLoggedInUser = () => {
+    return getToken().then((token) => {
+      return fetch(`${_apiUrl}/CurrentUser`, {
+          method: "GET",
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      }).then((res) => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          throw new Error("An unknown error occurred while trying to get the user.")
+        }
+    })
+  })
+}

@@ -31,9 +31,25 @@ export const getPostById = (id) => {
                 return res.json()
             } else {
                 throw new Error(
-                    "An unknown error occurred while trying to get posts."
-                )
+                    "An unknown error occurred while trying to get this posts.")
             }
+        })
+    })
+}
+
+export const getPostsByUserId = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/User/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+           if (res.ok) {
+            return res.json()
+           } else {
+            throw new Error("An unknown error occurred while trying to get your posts.")
+           }
         })
     })
 }

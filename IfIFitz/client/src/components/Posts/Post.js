@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-export const Post = ({ post }) => {
+export const Post = ({ post, user }) => {
     const navigate = useNavigate()
 
     return (
@@ -25,8 +25,12 @@ export const Post = ({ post }) => {
                 <CardText>
                     {post.description}
                 </CardText>
-                <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
-                <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
+                {user.id === post.userProfileId ? 
+                    <>
+                    <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
+                    <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
+                    </>
+                : ""}
             </CardBody>
         </Card>
     )
