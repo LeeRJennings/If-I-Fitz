@@ -70,6 +70,16 @@ namespace IfIFitz.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+        [HttpGet("CurrentUser")]
+        public IActionResult GetLoggedInUser()
+        {
+            UserProfile user = GetCurrentUserProfile();
+            user.FirebaseUserId = null;
+            user.Email = null;
+            return Ok(user);
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
