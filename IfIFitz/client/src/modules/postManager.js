@@ -54,6 +54,23 @@ export const getPostsByUserId = (id) => {
     })
 }
 
+export const getFavoritedPostsByUserId = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/Favorite/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+           if (res.ok) {
+            return res.json()
+           } else {
+            throw new Error("An unknown error occurred while trying to get posts.")
+           }
+        })
+    })
+}
+
 export const addPost = (post) => {
     return getToken().then((token) => {
         return fetch(baseUrl, {
@@ -111,6 +128,25 @@ export const deletePost = (id) => {
                 throw new Error(
                     "An unknown error occured while trying to delete a post."
                 )
+            }
+        })
+    })
+}
+
+export const addFavorite = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/Favorite/${id}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(id),
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                throw new Error("An unknown error occurred while trying to favorite this post.")
             }
         })
     })
