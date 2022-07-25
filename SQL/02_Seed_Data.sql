@@ -16,7 +16,8 @@ VALUES
 (2, 'Plastic'),
 (3, 'Cloth'),
 (4, 'Metal'),
-(5, 'Wicker')
+(5, 'Wicker'),
+(6, 'Other')
 set identity_insert [Material] off;
 
 set identity_insert [UserProfile] on;
