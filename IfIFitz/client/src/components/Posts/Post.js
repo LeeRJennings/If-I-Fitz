@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText, CardGroup } from "reactstrap";
+import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import firebase from "firebase/app";
@@ -25,7 +25,8 @@ export const Post = ({ post }) => {
                 <CardText>
                     {post.description}
                 </CardText>
-                <Button color="primary" onClick={() => navigate(`/edit/${post.id}`)}>Edit</Button>
+                <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
+                <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
             </CardBody>
         </Card>
     )

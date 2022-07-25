@@ -43,7 +43,7 @@ export const PostEdit = () => {
             const newPost = {...post}
             delete newPost.userProfile
             updatePost(newPost)
-            .then(() => navigate("/"))
+            .then(() => navigate("/posts"))
         }
     }
 
