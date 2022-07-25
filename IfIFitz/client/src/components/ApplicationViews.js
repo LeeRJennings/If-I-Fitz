@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
+import { FavoritePosts } from "./Posts/FavoritePosts";
 import { PostByUser } from "./Posts/PostByUser";
 import { PostDelete } from "./Posts/PostDelete";
 import { PostEdit } from "./Posts/PostEdit";
@@ -21,6 +22,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           <Route path="edit/:id" element={isLoggedIn ? <PostEdit /> : <Navigate to="/login" />} />
           <Route path="delete/:id" element={isLoggedIn ? <PostDelete /> : <Navigate to="/login" />} />
           <Route path="myPosts" element={isLoggedIn ? <PostByUser user={user} /> : <Navigate to="/login" />} />
+          <Route path="favoritePosts" element={isLoggedIn ? <FavoritePosts user={user} /> : <Navigate to="/login" />} />
         </Route>
         
         <Route path="login" element={<Login />} />
