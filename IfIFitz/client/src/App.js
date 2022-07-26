@@ -7,7 +7,7 @@ import { onLoginStatusChange, getLoggedInUser } from "./modules/authManager";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(null)
   const [user, setUser] = useState(null)
 
   const getUser = () => {
@@ -25,7 +25,7 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  if (isLoggedIn === null || user === null) {
+  if (isLoggedIn === null || (user === null && isLoggedIn === true)) {
     return <Spinner className="app-spinner dark" />;
   }
 

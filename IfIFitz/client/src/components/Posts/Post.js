@@ -3,13 +3,34 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { addFavorite } from "../../modules/postManager";
+import { addFavorite, deleteFavorite } from "../../modules/postManager";
 
-export const Post = ({ post, user }) => {
+export const Post = ({ post, user, userFavorites, render, setRender }) => {
     const navigate = useNavigate()
 
-    const handleClickFavorite = (id) => {
+    const handleAddFavorite = (id) => {
         addFavorite(id)
+        .then(() => setRender(render + 1))
+    }
+
+    const handleDeleteFavorite = (id) => {
+        deleteFavorite(id)
+        .then(() => setRender(render + 1))
+    }
+
+    const favoriteCheck = () => {
+        if (userFavorites.find((f) => f.id === post.id)) {
+            return (
+                // <Button color="warning" onClick={() => handleDeleteFavorite(post.id)}>No Sitz</Button>
+                <div type="button" className="bggray2 text-info">
+                    <i className="fa-solid fa-star fa-xl" onClick={() => handleDeleteFavorite(post.id)}></i>
+                </div>
+            )
+        } else {
+            return (
+                <Button color="info" onClick={() => handleAddFavorite(post.id)}>I Sitz</Button>
+            )
+        }
     }
 
     return (
@@ -36,7 +57,7 @@ export const Post = ({ post, user }) => {
                     <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
                     </>
                 :   <>
-                    <Button color="info" onClick={() => handleClickFavorite(post.id)}>I Sitz</Button>
+                    {favoriteCheck()}
                     </>}
             </CardBody>
         </Card>
