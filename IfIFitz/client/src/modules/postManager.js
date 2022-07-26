@@ -165,7 +165,7 @@ export const deleteFavorite = (id) => {
                 throw new Error("Unauthorized")
             } else {
                 throw new Error(
-                    "An unknown error occured while trying to un-favorite post."
+                    "An unknown error occured while trying to un-favorite this post."
                 )
             }
         })
