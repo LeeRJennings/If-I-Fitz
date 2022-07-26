@@ -144,9 +144,29 @@ export const addFavorite = (id) => {
             body: JSON.stringify(id),
         }).then((res) => {
             if (res.ok) {
-                return res.json()
             } else {
                 throw new Error("An unknown error occurred while trying to favorite this post.")
+            }
+        })
+    })
+}
+
+export const deleteFavorite = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/Favorite/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(id)
+        }).then((res) => {
+            if (res.ok) {
+            } else if (res.status === 401) {
+                throw new Error("Unauthorized")
+            } else {
+                throw new Error(
+                    "An unknown error occured while trying to un-favorite post."
+                )
             }
         })
     })
