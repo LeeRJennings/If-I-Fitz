@@ -4,7 +4,7 @@ import { getPostById } from "../../modules/postManager"
 import { getCommentsByPostId } from "../../modules/commentManager"
 import { addFavorite, deleteFavorite } from "../../modules/postManager"
 import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap"
-import { Comment } from "../Comment"
+import { Comment } from "../Comments/Comment"
 
 export const PostDetails = ({ user, userFavorites, render, setRender }) => {
     const [post, setPost] = useState({
@@ -115,6 +115,7 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
                     </div>
                 </CardBody>
             </Card>
+            <Button color="success" size="lg" onClick={() => navigate(`/posts/${post.id}/addComment`)}>Add Comment</Button>
             {commentCheck()}
         </div>
     )
