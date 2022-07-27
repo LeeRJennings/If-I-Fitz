@@ -24,5 +24,16 @@ namespace IfIFitz.Controllers
         {
             return Ok(_commentRepo.GetCommentsByPostId(id));
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var comment = _commentRepo.GetCommentById(id);
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
+        }
     }
 }
