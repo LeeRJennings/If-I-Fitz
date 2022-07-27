@@ -68,6 +68,20 @@ namespace IfIFitz.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var currentComment = _commentRepo.GetCommentById(id);
+            var currentUser = GetCurrentUserProfile();
+            if (currentComment.UserProfileId != currentUser.Id)
+            {
+                return BadRequest();
+            }
+
+            _commentRepo.DeleteComment(id);
+            return NoContent();
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
