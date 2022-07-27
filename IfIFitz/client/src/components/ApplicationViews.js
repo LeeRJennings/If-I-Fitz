@@ -5,6 +5,7 @@ import Login from "./Login";
 import { FavoritePosts } from "./Posts/FavoritePosts";
 import { PostByUser } from "./Posts/PostByUser";
 import { PostDelete } from "./Posts/PostDelete";
+import { PostDetails } from "./Posts/PostDetails";
 import { PostEdit } from "./Posts/PostEdit";
 import { PostForm } from "./Posts/PostForm";
 import { PostList } from "./Posts/PostList";
@@ -50,6 +51,12 @@ export default function ApplicationViews({ isLoggedIn, user }) {
                                                                            render={render} 
                                                                            setRender={setRender} 
                                                                            /> : <Navigate to="/login" />} />
+
+          <Route path=":id" element={isLoggedIn ? <PostDetails user={user} 
+                                                               userFavorites={userFavorites} 
+                                                               render={render} 
+                                                               setRender={setRender} 
+                                                               /> : <Navigate to="/login" />} />
         </Route>
         
         <Route path="login" element={<Login />} />
