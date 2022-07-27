@@ -33,6 +33,7 @@ namespace IfIFitz
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ISizeRepository, SizeRepository>();
             services.AddTransient<IMaterialRepository, MaterialRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

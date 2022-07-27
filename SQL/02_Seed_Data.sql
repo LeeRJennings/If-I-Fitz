@@ -41,3 +41,11 @@ VALUES
 (1, 3),
 (2, 2),
 (3, 1)
+
+set identity_insert [Comment] on;
+INSERT INTO "Comment" ("Id", "PostId", "UserProfileId", "Content", "CreatedDateTime")
+VALUES
+(1, 1, 2, 'Is it really that great? Looks like a normal box to me.', '2022-07-19'),
+(2, 1, 1, 'YEAH it is. Like I said the vibes are IMMACULATE.', '2022-07-20'),
+(3, 3, 3, 'I''d love to try out that wicker basket! ..... if you''d quit hogging it', '2022-07-21')
+set identity_insert [Comment] off;
