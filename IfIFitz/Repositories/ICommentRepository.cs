@@ -8,5 +8,6 @@ namespace IfIFitz.Repositories
         List<Comment> GetCommentsByPostId(int id);
         Comment GetCommentById(int id);
         void AddComment(Comment comment);
+        void UpdateComment(Comment comment);
     }
 }

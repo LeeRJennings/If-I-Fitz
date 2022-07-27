@@ -42,11 +42,30 @@ namespace IfIFitz.Controllers
         [HttpPost]
         public IActionResult Post(Comment comment)
         {
-            UserProfile currentUser = GetCurrentUserProfile();
+            var currentUser = GetCurrentUserProfile();
             comment.UserProfileId = currentUser.Id;
             comment.CreatedDateTime = DateTime.Now;
             _commentRepo.AddComment(comment);
             return Ok(comment);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Comment comment)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            if (comment.UserProfileId != currentUser.Id)
+            {
+                return BadRequest();
+            }
+
+            if (id != comment.Id)
+            {
+                return BadRequest();
+            }
+
+            _commentRepo.UpdateComment(comment);
+            return NoContent();
         }
 
         private UserProfile GetCurrentUserProfile()
