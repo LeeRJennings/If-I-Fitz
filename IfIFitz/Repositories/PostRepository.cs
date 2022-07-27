@@ -85,7 +85,7 @@ namespace IfIFitz.Repositories
                                         JOIN Size s ON s.Id = p.SizeId
                                         JOIN Material m ON m.Id = p.MaterialId
                                         WHERE p.Id = @id";
-                    DbUtils.AddParameter(cmd, "id", id);
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     using (var reader = cmd.ExecuteReader())
                     {

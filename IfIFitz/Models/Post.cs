@@ -20,7 +20,6 @@ namespace IfIFitz.Models
         public string ImageLocation { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}")]
         public DateTime CreatedDateTime { get; set; }
 
         [Required]
