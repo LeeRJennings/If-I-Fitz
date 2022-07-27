@@ -20,3 +20,22 @@ export const getCommentsByPostId = (id) => {
         })
     })
 }
+
+export const addComment = (comment) => {
+    return getToken().then((token) => {
+        return fetch(baseUrl, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(comment),
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            } else {
+                throw new Error("An unknown error occurred while trying to save your post.")
+            }
+        })
+    })
+}

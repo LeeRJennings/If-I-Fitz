@@ -51,6 +51,7 @@ export const PostForm = () => {
     
     return (
         <Form>
+            <h2>Add a New Post</h2>
             <FormGroup>
                 <Label for="title">Title:</Label>
                 <Input type="text" 

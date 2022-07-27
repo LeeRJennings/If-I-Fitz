@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getFavoritedPostsByUserId } from "../modules/postManager";
+import { CommentForm } from "./Comments/CommentForm";
 import Login from "./Login";
 import { FavoritePosts } from "./Posts/FavoritePosts";
 import { PostByUser } from "./Posts/PostByUser";
@@ -57,6 +58,7 @@ export default function ApplicationViews({ isLoggedIn, user }) {
                                                                render={render} 
                                                                setRender={setRender} 
                                                                /> : <Navigate to="/login" />} />
+          <Route path=":id/addComment" element={isLoggedIn ? <CommentForm /> : <Navigate to="/login" />} />
         </Route>
         
         <Route path="login" element={<Login />} />

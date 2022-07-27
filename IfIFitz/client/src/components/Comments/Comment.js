@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
+import { Card, CardBody, CardSubtitle, CardText } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 
 export const Comment = ({ comment }) => {
