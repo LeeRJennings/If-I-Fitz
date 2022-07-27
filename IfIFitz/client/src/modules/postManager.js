@@ -31,7 +31,8 @@ export const getPostById = (id) => {
                 return res.json()
             } else {
                 throw new Error(
-                    "An unknown error occurred while trying to get this posts.")
+                    "An unknown error occurred while trying to get this posts."
+                )
             }
         })
     })
