@@ -6,5 +6,6 @@ namespace IfIFitz.Repositories
     public interface ICommentRepository
     {
         List<Comment> GetCommentsByPostId(int id);
+        Comment GetCommentById(int id);
     }
 }
