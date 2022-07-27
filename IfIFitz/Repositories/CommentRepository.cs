@@ -94,5 +94,25 @@ namespace IfIFitz.Repositories
                 }
             }
         }
+
+        public void AddComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Comment (PostId, UserProfileId, Content, CreatedDateTime)
+                                        OUTPUT INSERTED.ID
+                                        VALUES (@PostId, @UserProfileId, @Content, @CreatedDateTime)";
+                    DbUtils.AddParameter(cmd, "@PostId", comment.PostId);
+                    DbUtils.AddParameter(cmd, "@UserProfileId", comment.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@Content", comment.Content);
+                    DbUtils.AddParameter(cmd, "@CreatedDateTime", comment.CreatedDateTime);
+
+                    comment.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
     }
 }
