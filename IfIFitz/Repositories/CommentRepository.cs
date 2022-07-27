@@ -114,5 +114,23 @@ namespace IfIFitz.Repositories
                 }
             }
         }
+
+        public void UpdateComment(Comment comment)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Comment
+                                        SET Content = @Content
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@Content", comment.Content);
+                    DbUtils.AddParameter(cmd, "@Id", comment.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
