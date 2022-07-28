@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardSubtitle, CardText, Modal, ModalBody, Modal
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { deleteComment } from "../../modules/commentManager";
-import { dateFormatter } from "../../Helpers/dateFormatter";
+import { dateFormatter } from "../../helpers/dateFormatter";
 
 export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
     const [modal, setModal] = useState(false)
