@@ -84,16 +84,18 @@ namespace IfIFitz.Controllers
             return NoContent();
         }
 
-        [HttpGet("User/{id}")]
-        public IActionResult GetByUserId(int id)
+        [HttpGet("User")]
+        public IActionResult GetCurrentUsersPosts()
         {
-            return Ok(_postRepo.GetPostsByUserId(id));
+            UserProfile currentUser = GetCurrentUserProfile();
+            return Ok(_postRepo.GetPostsByUserId(currentUser.Id));
         }
 
-        [HttpGet("Favorite/{id}")]
-        public IActionResult GetUsersFavoritedPosts(int id)
+        [HttpGet("Favorite/")]
+        public IActionResult GetCurrentUsersFavoritedPosts()
         {
-            return Ok(_postRepo.GetUsersFavoritedPosts(id));
+            UserProfile currentUser = GetCurrentUserProfile();
+            return Ok(_postRepo.GetUsersFavoritedPosts(currentUser.Id));
         }
 
         [HttpPost("Favorite/{id}")]

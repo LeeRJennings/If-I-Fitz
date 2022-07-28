@@ -38,9 +38,9 @@ export const getPostById = (id) => {
     })
 }
 
-export const getPostsByUserId = (id) => {
+export const getCurrentUsersPosts = () => {
     return getToken().then((token) => {
-        return fetch(`${baseUrl}/User/${id}`, {
+        return fetch(`${baseUrl}/User`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -55,9 +55,9 @@ export const getPostsByUserId = (id) => {
     })
 }
 
-export const getFavoritedPostsByUserId = (id) => {
+export const getCurrentUsersFavoritedPosts = () => {
     return getToken().then((token) => {
-        return fetch(`${baseUrl}/Favorite/${id}`, {
+        return fetch(`${baseUrl}/Favorite/`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

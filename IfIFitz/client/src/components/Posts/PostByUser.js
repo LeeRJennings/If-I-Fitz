@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react";
-import { getPostsByUserId } from "../../modules/postManager";
+import { getCurrentUsersPosts } from "../../modules/postManager";
 import { Post } from "./Post";
 import { useNavigate } from "react-router-dom";
 import { Button, Row } from "reactstrap";
+import { getLoggedInUser } from "../../modules/authManager";
 
-export const PostByUser = ({ user, userFavorites, render, setRender }) => {
+export const PostByUser = () => {
     const [posts, setPosts] = useState([])
+    const [user, setUser] = useState({})
     
     const navigate = useNavigate()
 
+    const getUser = () => {
+        getLoggedInUser()
+        .then(user => setUser(user))
+    }
+
     const getPosts = () => {
-        getPostsByUserId(user.id)
+        getCurrentUsersPosts()
         .then((posts) => setPosts(posts))
     }
 
     useEffect(() => {
+        getUser()
         getPosts()  
     }, [])
 
@@ -22,13 +30,10 @@ export const PostByUser = ({ user, userFavorites, render, setRender }) => {
         <>
         <Button color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
         <Row>
-            {posts?.map((post) => (
+            {posts.map((post) => (
                 <Post post={post} 
                       key={post.id} 
-                      user={user} 
-                      userFavorites={userFavorites} 
-                      render={render}
-                      setRender={setRender} />
+                      user={user} />
             ))}
         </Row>
         </>
