@@ -21,7 +21,7 @@ export default function Header({ isLoggedIn }) {
     <div>
       <Navbar color="light" light expand="md">
         <NavbarBrand tag={RRNavLink} to="/">
-          <img alt="logo" src="./images/If-I-Fitz-logo.png" style={{height: 70, width: 70}}/>
+          <img alt="logo" src="/images/If-I-Fitz-logo.png" style={{height: 70, width: 70}}/>
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
