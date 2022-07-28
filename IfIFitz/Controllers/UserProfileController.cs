@@ -45,21 +45,6 @@ namespace IfIFitz.Controllers
             return Ok(_userProfileRepository.GetByUserId(id));
         }
 
-        //[HttpGet("LoggedInUserCheck")]
-        //public IActionResult CurrentUserCheck(string firebaseUserId)
-        //{
-        //    var currentUserProfile = _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
-        //    UserProfile userProfile = GetCurrentUserProfile();
-        //    if (currentUserProfie.Id == userProfile.Id)
-        //    {
-        //        return Ok();
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("User not a match");
-        //    }
-        //}
-
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {

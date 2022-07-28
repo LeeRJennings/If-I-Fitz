@@ -1,7 +1,8 @@
-import { Button, Card, CardBody, CardSubtitle, CardText, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Button, Card, CardBody, CardSubtitle, CardText, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { deleteComment } from "../../modules/commentManager";
+import { dateFormatter } from "../../Helpers/dateFormatter";
 
 export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
     const [modal, setModal] = useState(false)
@@ -32,7 +33,7 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
         <Card color="light" style={{width: '30%'}}>
             <CardBody>
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
-                    Posted by: {comment.userProfile.name} <br/> On: {comment.createdDateTime}
+                    Posted by: {comment.userProfile.name} <br/> On: {dateFormatter(comment.createdDateTime)}
                 </CardSubtitle>
                 <CardText>
                     {comment.content}

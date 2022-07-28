@@ -55,9 +55,43 @@ export const getCurrentUsersPosts = () => {
     })
 }
 
+export const getPostsByUserId = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/User/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+           if (res.ok) {
+            return res.json()
+           } else {
+            throw new Error("An unknown error occurred while trying to get your posts.")
+           }
+        })
+    })
+}
+
 export const getCurrentUsersFavoritedPosts = () => {
     return getToken().then((token) => {
         return fetch(`${baseUrl}/Favorite/`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((res) => {
+           if (res.ok) {
+            return res.json()
+           } else {
+            throw new Error("An unknown error occurred while trying to get posts.")
+           }
+        })
+    })
+}
+
+export const getFavoritedPostsByUserId = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/Favorite/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

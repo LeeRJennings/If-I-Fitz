@@ -52,22 +52,6 @@ export const PostDetails = () => {
         .then(comments => setComments(comments))
     }
 
-    const commentCheck = () => {
-        if (comments.length) {
-            return (
-                <>
-                {comments.map((comment) => (
-                    <Comment comment={comment} key={comment.id} user={user} commentRender={commentRender} setCommentRender={setCommentRender}/>
-                ))}
-                </>
-            )
-        } else {
-            return (
-                <><p>No comments for this post yet. You can add the first!</p></>
-            )
-        }
-    }
-
     useEffect(() => {
         getUser()
         getPost()
@@ -80,6 +64,26 @@ export const PostDetails = () => {
     useEffect(() => {
         getComments()
     }, [commentRender])
+
+    const commentCheck = () => {
+        if (comments.length) {
+            return (
+                <>
+                {comments.map((comment) => (
+                    <Comment comment={comment} 
+                             key={comment.id} 
+                             user={user} 
+                             commentRender={commentRender} 
+                             setCommentRender={setCommentRender}/>
+                ))}
+                </>
+            )
+        } else {
+            return (
+                <><p>No comments for this post yet. You can add the first!</p></>
+            )
+        }
+    }
     
     return (
         <div style={{display: "flex", flexDirection: "column" }}>

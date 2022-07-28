@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { addFavorite, deleteFavorite } from "../../modules/postManager";
+import { dateFormatter } from "../../Helpers/dateFormatter";
 
 export const Post = ({ post, user, userFavorites, render, setRender }) => {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
                     {post.title}
                 </CardTitle>
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
-                    Posted by: {post.userProfile.name} <br/> On: {post.createdDateTime}
+                    Posted by: {post.userProfile.name} <br/> On: {dateFormatter(post.createdDateTime)}
                 </CardSubtitle>
             </CardBody>
                 <img alt="probably a cat in a box" src={post.imageLocation} width="100%"/>
