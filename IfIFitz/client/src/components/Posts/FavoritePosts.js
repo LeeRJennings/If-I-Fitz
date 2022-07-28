@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { getCurrentUsersFavoritedPosts } from "../../modules/postManager";
+import { getCurrentUsersFavoritedPosts, getFavoritedPostsByUserId } from "../../modules/postManager";
 import { Post } from "./Post";
 import { useNavigate } from "react-router-dom";
-import { Button, Row } from "reactstrap";
-import { getLoggedInUser } from "../../modules/authManager";
+import { Button, Row, Label } from "reactstrap";
+import { getLoggedInUser, getAllUsers } from "../../modules/authManager";
 
 export const FavoritePosts = () => {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState({})
     const [userFavorites, setUserFavorites] = useState([])
     const [render, setRender] = useState(1)
+    const [allUsers, setAllUsers] = useState([])
     
     const navigate = useNavigate()
 
@@ -25,11 +26,17 @@ export const FavoritePosts = () => {
 
     const getPosts = () => {
         getCurrentUsersFavoritedPosts()
-        .then((posts) => setPosts(posts))
+        .then(posts => setPosts(posts))
+    }
+
+    const getEveryUser = () => {
+        getAllUsers()
+        .then(users => setAllUsers(users))
     }
 
     useEffect(() => {
         getUser()
+        getEveryUser()
     }, [])
 
     useEffect(() => {
@@ -37,8 +44,29 @@ export const FavoritePosts = () => {
         getUserFavorites() 
     }, [render])
 
+    const handleFieldChange = (e) => {
+        getFavoritedPostsByUserId(e.target.value)
+        .then(posts => {
+            if (!posts.length) {
+                window.alert("Sorry, this user doesn't have any posts yet.")
+            } else {
+                setPosts(posts)
+            }
+        })
+    }
+
     return (
         <>
+        <Label for="users">See someone else's favorites:</Label>{" "}
+                <select defaultValue="0" name="users" form="categoryForm" onChange={handleFieldChange}>
+                <option hidden disabled value="0">--Select a User--</option>
+                {allUsers.map(u => (
+                    <option key={u.id} value={u.id}>
+                    {u.name}
+                    </option>
+                ))}
+                </select>
+        <br/>
         <Button color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
         <Row>
             {posts?.map((post) => (

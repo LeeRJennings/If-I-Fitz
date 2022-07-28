@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {deletePost, getPostById} from "../../modules/postManager";
 import {Button, Form, FormGroup, Label} from "reactstrap";
+import { dateFormatter } from "../../Helpers/dateFormatter";
 
 export const PostDelete = () => {
     const [post, setPost] = useState({
@@ -30,7 +31,7 @@ export const PostDelete = () => {
         <Form>
             <FormGroup>
                 <Label>Are you sure you'd like to delete the post titled: <b>{post.title}</b>? 
-                        <br/>Originally posted on: <b>{post.createdDateTime}</b>
+                        <br/>Originally posted on: <b>{dateFormatter(post.createdDateTime)}</b>
                 </Label>
             </FormGroup>
             <FormGroup>
