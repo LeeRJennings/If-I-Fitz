@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getPostById } from "../../modules/postManager"
+import { getCurrentUsersFavoritedPosts, getPostById } from "../../modules/postManager"
 import { getCommentsByPostId } from "../../modules/commentManager"
-import { addFavorite, deleteFavorite } from "../../modules/postManager"
-import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap"
+import { Button } from "reactstrap"
 import { Comment } from "../Comments/Comment"
+import { getLoggedInUser } from "../../modules/authManager"
+import { Post } from "./Post"
 
-export const PostDetails = ({ user, userFavorites, render, setRender }) => {
+export const PostDetails = () => {
+    const [user, setUser] = useState({})
     const [post, setPost] = useState({
         title: "",
         createdDateTime: "",
@@ -23,10 +25,22 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
         }
     })
     const [comments, setComments] = useState([])
+    const [userFavorites, setUserFavorites] = useState([])
+    const [render, setRender] = useState(1)
     const [commentRender, setCommentRender] = useState(1)
 
     const navigate = useNavigate()
     const {id} = useParams()
+
+    const getUser = () => {
+        getLoggedInUser()
+        .then(user => setUser(user))
+    }
+
+    const getUserFavorites = () => {
+        getCurrentUsersFavoritedPosts()
+        .then(posts => setUserFavorites(posts))
+    }
 
     const getPost = () => {
         getPostById(id)
@@ -36,39 +50,6 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
     const getComments = () => {
         getCommentsByPostId(id)
         .then(comments => setComments(comments))
-    }
-
-    const handleAddFavorite = (id) => {
-        addFavorite(id)
-        .then(() => setRender(render + 1))
-    }
-
-    const handleDeleteFavorite = (id) => {
-        deleteFavorite(id)
-        .then(() => setRender(render + 1))
-    }
-
-    const buttonDisplay = () => {
-        if (user.id === post.userProfileId) {
-            return (
-                <>
-                <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
-                <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
-                </>
-            )
-        } else {
-            if (userFavorites.find((f) => f.id === post.id)) {
-                return (
-                    <div type="button" className="bggray2 text-info">
-                        <i className="fa-solid fa-star fa-xl" onClick={() => handleDeleteFavorite(post.id)}></i>
-                    </div>
-                )
-            } else {
-                return (
-                    <Button color="info" onClick={() => handleAddFavorite(post.id)}>I Sitz</Button>
-                )
-            }
-        }
     }
 
     const commentCheck = () => {
@@ -88,34 +69,26 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
     }
 
     useEffect(() => {
+        getUser()
         getPost()
+    }, [])
+
+    useEffect(() => {
+        getUserFavorites()
+    }, [render])
+
+    useEffect(() => {
         getComments()
     }, [commentRender])
     
     return (
         <div style={{display: "flex", flexDirection: "column" }}>
-            <Card color="light" style={{width: '40%'}}>
-                <CardBody>
-                    <CardTitle tag="h5">
-                        {post.title}
-                    </CardTitle>
-                    <CardSubtitle className="mb-2 text-muted" tag="h6">
-                        Posted by: {post.userProfile.name} <br/> On: {post.createdDateTime}
-                    </CardSubtitle>
-                </CardBody>
-                    <img alt="probably a cat in a box" src={post.imageLocation} width="100%"/>
-                <CardBody>
-                    <CardText className="mb-2 text-muted">
-                        <b>Size:</b> {post.size.name} | <b>Material:</b> {post.material.type}
-                    </CardText>
-                    <CardText>
-                        {post.description}
-                    </CardText>
-                    <div>    
-                        {buttonDisplay()}
-                    </div>
-                </CardBody>
-            </Card>
+            <Post post={post} 
+                  user={user} 
+                  key={post.id} 
+                  userFavorites={userFavorites} 
+                  render={render}
+                  setRender={setRender} />
             <Button color="success" size="lg" onClick={() => navigate(`/posts/${post.id}/addComment`)}>Add Comment</Button>
             {commentCheck()}
         </div>
