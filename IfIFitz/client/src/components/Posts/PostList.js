@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getAllPosts, getCurrentUsersFavoritedPosts } from "../../modules/postManager";
+import { getAllPosts, getCurrentUsersFavoritedPosts, searchPosts } from "../../modules/postManager";
 import { Post } from "./Post";
 import { useNavigate } from "react-router-dom";
-import { Button, Row } from "reactstrap";
+import { Button, Row, Input } from "reactstrap";
 import { getLoggedInUser } from "../../modules/authManager";
 
 export const PostList = () => {
@@ -37,8 +37,16 @@ export const PostList = () => {
         getUserFavorites()
     }, [render])
 
+    const handleSearch = (e) => {
+        if (e.keyCode === 13) {
+            searchPosts(e.target.value)
+            .then(posts => setPosts(posts))
+        }
+    }
+
     return (
         <>
+        <Input type="text" id="videoSearch" placeholder="search posts here..." onKeyUp={handleSearch} />
         <Button color="success" size="lg" onClick={() => navigate("/posts/create")}>Add Post</Button>
         <Row>
             {posts.map((post) => (

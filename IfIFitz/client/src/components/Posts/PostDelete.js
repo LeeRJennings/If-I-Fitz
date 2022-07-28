@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {deletePost, getPostById} from "../../modules/postManager";
 import {Button, Form, FormGroup, Label} from "reactstrap";
-import { dateFormatter } from "../../Helpers/dateFormatter";
+import { dateFormatter } from "../../helpers/dateFormatter";
 
 export const PostDelete = () => {
     const [post, setPost] = useState({

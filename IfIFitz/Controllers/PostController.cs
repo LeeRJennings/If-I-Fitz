@@ -149,6 +149,12 @@ namespace IfIFitz.Controllers
             }
         }
 
+        [HttpGet("Search")]
+        public IActionResult Search(string q)
+        {
+            return Ok(_postRepo.Search(q));
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { addFavorite, deleteFavorite } from "../../modules/postManager";
-import { dateFormatter } from "../../Helpers/dateFormatter";
+import { dateFormatter } from "../../helpers/dateFormatter";
 
 export const Post = ({ post, user, userFavorites, render, setRender }) => {
     const navigate = useNavigate()
