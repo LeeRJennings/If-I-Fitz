@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { getFavoritedPostsByUserId } from "../modules/postManager";
+import { CommentEdit } from "./Comments/CommentEdit";
 import { CommentForm } from "./Comments/CommentForm";
 import Login from "./Login";
 import { FavoritePosts } from "./Posts/FavoritePosts";
@@ -38,15 +39,12 @@ export default function ApplicationViews({ isLoggedIn, user }) {
                                                        setRender={setRender} 
                                                        /> : <Navigate to="/login" />} />
 
-          <Route path="create" element={isLoggedIn ? <PostForm /> : <Navigate to="/login" />} />
-          <Route path="edit/:id" element={isLoggedIn ? <PostEdit /> : <Navigate to="/login" />} />
-          <Route path="delete/:id" element={isLoggedIn ? <PostDelete /> : <Navigate to="/login" />} />
           <Route path="myPosts" element={isLoggedIn ? <PostByUser user={user} 
                                                                   userFavorites={userFavorites} 
                                                                   render={render} 
                                                                   setRender={setRender} 
                                                                   /> : <Navigate to="/login" />} />
-                                                                  
+
           <Route path="favoritePosts" element={isLoggedIn ? <FavoritePosts user={user} 
                                                                            userFavorites={userFavorites} 
                                                                            render={render} 
@@ -58,7 +56,12 @@ export default function ApplicationViews({ isLoggedIn, user }) {
                                                                render={render} 
                                                                setRender={setRender} 
                                                                /> : <Navigate to="/login" />} />
+
+          <Route path="create" element={isLoggedIn ? <PostForm /> : <Navigate to="/login" />} />
+          <Route path="edit/:id" element={isLoggedIn ? <PostEdit /> : <Navigate to="/login" />} />
+          <Route path="delete/:id" element={isLoggedIn ? <PostDelete /> : <Navigate to="/login" />} />
           <Route path=":id/addComment" element={isLoggedIn ? <CommentForm /> : <Navigate to="/login" />} />
+          <Route path="editComment/:id" element={isLoggedIn ? <CommentEdit /> : <Navigate to="/login" />} />
         </Route>
         
         <Route path="login" element={<Login />} />

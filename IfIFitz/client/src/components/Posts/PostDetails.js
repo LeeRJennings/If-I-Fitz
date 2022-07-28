@@ -75,7 +75,7 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
             return (
                 <>
                 {comments.map((comment) => (
-                    <Comment comment={comment} key={comment.id}/>
+                    <Comment comment={comment} key={comment.id} user={user}/>
                 ))}
                 </>
             )

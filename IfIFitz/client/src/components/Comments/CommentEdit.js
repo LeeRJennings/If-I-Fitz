@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react"
-import { addComment } from "../../modules/commentManager";
+import { updateComment, getCommentById } from "../../modules/commentManager";
 import { useNavigate, useParams } from "react-router-dom"
 import { Button,Form,FormGroup,Input,Label } from 'reactstrap';
 
 
-export const CommentForm = () => {
+export const CommentEdit = () => {
     const [comment, setComment] = useState({
         content: ""
     })
@@ -12,6 +12,11 @@ export const CommentForm = () => {
 
     const navigate = useNavigate()
     const {id} = useParams()
+
+    const getComment = () => {
+        getCommentById(id)
+        .then(comment => setComment(comment))
+    }
 
     const handleFieldChange = (e) => {
         const newComment = {...comment}
@@ -25,13 +30,14 @@ export const CommentForm = () => {
             window.alert("A comment with no content seems pretty pointless ........")
         } else {
             setIsLoading(true)
-            comment.postId = id
-            addComment(comment)
-            .then(() => navigate(`/posts/${id}`))
+            delete comment.userProfile
+            updateComment(comment)
+            .then(() => navigate(`/posts/${comment.postId}`))
         }
     }
 
     useEffect(() => {
+        getComment()
         setIsLoading(false)
     }, [])
 
@@ -46,7 +52,7 @@ export const CommentForm = () => {
                         value={comment.content}
                         placeholder="Write your comment here..." />
             </FormGroup>
-            <Button color="success" onClick={() => handleClickSave()} disabled={isLoading}>Add Comment</Button>
+            <Button color="primary" onClick={() => handleClickSave()} disabled={isLoading}>Save Edits</Button>
             <Button onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
