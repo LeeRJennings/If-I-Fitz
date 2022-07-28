@@ -23,6 +23,7 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
         }
     })
     const [comments, setComments] = useState([])
+    const [commentRender, setCommentRender] = useState(1)
 
     const navigate = useNavigate()
     const {id} = useParams()
@@ -75,7 +76,7 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
             return (
                 <>
                 {comments.map((comment) => (
-                    <Comment comment={comment} key={comment.id} user={user}/>
+                    <Comment comment={comment} key={comment.id} user={user} commentRender={commentRender} setCommentRender={setCommentRender}/>
                 ))}
                 </>
             )
@@ -89,7 +90,7 @@ export const PostDetails = ({ user, userFavorites, render, setRender }) => {
     useEffect(() => {
         getPost()
         getComments()
-    }, [])
+    }, [commentRender])
     
     return (
         <div style={{display: "flex", flexDirection: "column" }}>
