@@ -4,6 +4,7 @@ import { Post } from "./Post";
 import { useNavigate } from "react-router-dom";
 import { Button, Row, Label } from "reactstrap";
 import { getLoggedInUser, getAllUsers } from "../../modules/authManager";
+import "./PostViews.css"
 
 export const FavoritePosts = () => {
     const [posts, setPosts] = useState([])
@@ -57,18 +58,18 @@ export const FavoritePosts = () => {
 
     return (
         <>
-        <Label for="users">See someone else's favorites:</Label>{" "}
-                <select defaultValue="0" name="users" form="categoryForm" onChange={handleFieldChange}>
-                <option hidden disabled value="0">--Select a User--</option>
-                {allUsers.map(u => (
-                    <option key={u.id} value={u.id}>
-                    {u.name}
-                    </option>
-                ))}
-                </select>
+        <Label className="m-0 mb-0 mt-2 ms-3" for="users">See someone else's favorites:</Label>{" "}
+        <select defaultValue="0" name="users" form="categoryForm" onChange={handleFieldChange}>
+        <option hidden disabled value="0">--Select a User--</option>
+        {allUsers.map(u => (
+            <option key={u.id} value={u.id}>
+            {u.name}
+            </option>
+        ))}
+        </select>
         <br/>
-        <Button color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
-        <Row>
+        <Button className="m-3 mb-0 mt-2" color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
+        <Row className="m-2 mt-1">
             {posts?.map((post) => (
                 <Post post={post} 
                       key={post.id} 

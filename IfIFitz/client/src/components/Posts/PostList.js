@@ -4,6 +4,7 @@ import { Post } from "./Post";
 import { useNavigate } from "react-router-dom";
 import { Button, Row, Input } from "reactstrap";
 import { getLoggedInUser } from "../../modules/authManager";
+import "./PostViews.css"
 
 export const PostList = () => {
     const [posts, setPosts] = useState([])
@@ -40,15 +41,21 @@ export const PostList = () => {
     const handleSearch = (e) => {
         if (e.keyCode === 13) {
             searchPosts(e.target.value)
-            .then(posts => setPosts(posts))
+            .then(posts => {
+                if (posts.length) {
+                    setPosts(posts)
+                } else {
+                    window.alert("Sorry, no posts match that search.")
+                }
+            })
         }
     }
 
     return (
         <>
-        <Input type="text" id="videoSearch" placeholder="search posts here..." onKeyUp={handleSearch} />
-        <Button color="success" size="lg" onClick={() => navigate("/posts/create")}>Add Post</Button>
-        <Row>
+        <Input className="m-3 mb-0 mt-2" id="searchBar" type="text" placeholder="press enter to search....." onKeyUp={handleSearch} />
+        <Button className="m-3 mb-0 mt-2" color="success" size="lg" onClick={() => navigate("/posts/create")}>Add Post</Button>
+        <Row className="m-2 mt-1">
             {posts.map((post) => (
                 <Post post={post} 
                       key={post.id} 
