@@ -1,13 +1,7 @@
 .cardButtons {
-    position: absolute;
-    bottom: 0; 
-    margin-bottom: .3rem;
-    margin-top: 3rem;
+    margin: 0 .5rem .4rem .6rem;
     display: flex;
-}
-
-.otherButtons {
-    margin-right: 1rem;
+    justify-content: space-between;
 }
 
 .star {
@@ -19,7 +13,7 @@
 }
 
 .cardPost {
-    min-height: 40rem;
+    padding: 0 .5rem;
 }
 
 #searchBar {
