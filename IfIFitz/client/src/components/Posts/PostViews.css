@@ -1,0 +1,28 @@
+.cardButtons {
+    position: absolute;
+    bottom: 0; 
+    margin-bottom: .3rem;
+    margin-top: 3rem;
+    display: flex;
+}
+
+.otherButtons {
+    margin-right: 1rem;
+}
+
+.star {
+    margin-top: .37rem;
+}
+
+.description {
+    margin-bottom: 2rem;
+}
+
+.cardPost {
+    min-height: 40rem;
+}
+
+#searchBar {
+    width: 35%;
+    border: .15rem solid black;
+}
