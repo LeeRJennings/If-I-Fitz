@@ -45,11 +45,11 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
                 <CardTitle tag="h5">
                     {post.title}
                 </CardTitle>
-                <CardSubtitle className="pb-0 text-muted" tag="h6">
+                <CardSubtitle className="pb-1 text-muted" tag="h6">
                     Posted by: {post.userProfile.name} <br/> On: {dateFormatter(post.createdDateTime)}
                 </CardSubtitle>
             </CardBody>
-            <img alt="probably a cat in a box" src={post.imageLocation} width="100%" height="50%"/>
+            <img alt="probably a cat in a box" src={post.imageLocation} />
             <CardBody>
                 <CardText className="mb-2 text-muted">
                     <b>Size:</b> {post.size.name} | <b>Material:</b> {post.material.type}
@@ -57,15 +57,15 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
                 <CardText>
                     {post.description}
                 </CardText>
-                <div className="cardButtons">    
-                    <div className="otherButtons">
-                        {buttonDisplay()}
-                    </div>
-                    <div className="commentButton">
-                        <Button onClick={() => navigate(`/posts/${post.id}`)}>See Comments</Button>
-                    </div>
-                </div>
             </CardBody>
+            <div className="cardButtons">    
+                <div className="otherButtons">
+                    {buttonDisplay()}
+                </div>
+                <div className="commentButton">
+                    <Button onClick={() => navigate(`/posts/${post.id}`)}>See Comments</Button>
+                </div>
+            </div>
         </Card>
     )
 }

@@ -53,7 +53,7 @@ export const PostList = () => {
 
     return (
         <>
-        <Input className="m-3 mb-0 mt-2" id="searchBar" type="text" placeholder="press enter to search....." onKeyUp={handleSearch} />
+        <Input className="m-3 mb-0 mt-2" id="searchBar" type="text" placeholder="type a word or phrase then press enter to search" onKeyUp={handleSearch} />
         <Button className="m-3 mb-0 mt-2" color="success" size="lg" onClick={() => navigate("/posts/create")}>Add Post</Button>
         <Row className="m-2 mt-1">
             {posts.map((post) => (
