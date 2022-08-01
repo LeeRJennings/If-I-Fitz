@@ -19,10 +19,14 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
     const buttonDisplay = () => {
         if (user.id === post.userProfileId) {
             return (
-                <>
-                    <Button color="primary" onClick={() => navigate(`/posts/edit/${post.id}`)}>Edit</Button>
-                    <Button color="danger" onClick={() => navigate(`/posts/delete/${post.id}`)}>Delete</Button>
-                </>
+                <div className="editAndDelete">
+                    <div type="button" className="bggray2 text-primary star">
+                        <i className="fa-solid fa-pen-to-square fa-xl" onClick={() => navigate(`/posts/edit/${post.id}`)}></i>
+                    </div>
+                    <div type="button" className="bggray2 text-danger star">
+                        <i className="fa-solid fa-trash-can fa-xl" onClick={() => navigate(`/posts/delete/${post.id}`)}></i>
+                    </div>
+                </div>
             )
         } else {
             if (userFavorites.find((f) => f.id === post.id)) {
@@ -33,7 +37,9 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
                 )
             } else {
                 return (
-                    <Button color="info" onClick={() => handleAddFavorite(post.id)}>I Sitz</Button>
+                    <div type="button" className="bggray2 text-info star">
+                        <i className="fa-regular fa-star fa-xl" onClick={() => handleAddFavorite(post.id)}></i>
+                    </div>
                 )
             }
         }

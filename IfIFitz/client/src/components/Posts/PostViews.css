@@ -6,6 +6,7 @@
 
 .star {
     margin-top: .37rem;
+    margin-right: .3rem;
 }
 
 .description {
@@ -19,4 +20,12 @@
 #searchBar {
     width: 35%;
     border: .15rem solid black;
+}
+
+.editAndDelete {
+    display: flex;
+}
+
+.commentIcon {
+    margin-right: .3rem;
 }
