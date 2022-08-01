@@ -50,7 +50,7 @@ export const PostForm = () => {
     }, [])
     
     return (
-        <Form>
+        <Form className="m-2 p-2">
             <h2>Add a New Post</h2>
             <FormGroup>
                 <Label for="title">Title:</Label>
@@ -102,7 +102,7 @@ export const PostForm = () => {
                         placeholder="Describe your post here..." />
             </FormGroup>
             <Button color="success" onClick={() => handleClickSave()} disabled={isLoading}>Add Post</Button>
-            <Button onClick={() => navigate(-1)}>Cancel</Button>
+            <Button className="ms-2" onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
 }

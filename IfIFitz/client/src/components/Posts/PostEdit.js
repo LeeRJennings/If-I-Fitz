@@ -61,7 +61,8 @@ export const PostEdit = () => {
     }, [])
     
     return (
-        <Form>
+        <Form className="m-2 p-2">
+            <h2>Edit Your Post</h2>
             <FormGroup>
                 <Label for="title">Title:</Label>
                 <Input type="text" 
@@ -112,7 +113,7 @@ export const PostEdit = () => {
                         placeholder="Describe your post here..." />
             </FormGroup>
             <Button color="primary" onClick={() => handleClickSave()} disabled={isLoading}>Save Edits</Button>
-            <Button onClick={() => navigate(-1)}>Cancel</Button>
+            <Button className="ms-2" onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
 }

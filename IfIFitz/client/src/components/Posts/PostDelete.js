@@ -28,7 +28,7 @@ export const PostDelete = () => {
     }, [])
     
     return (
-        <Form>
+        <Form className="m-2 noBorderForm">
             <FormGroup>
                 <Label>Are you sure you'd like to delete the post titled: <b>{post.title}</b>? 
                         <br/>Originally posted on: <b>{dateFormatter(post.createdDateTime)}</b>
@@ -36,7 +36,7 @@ export const PostDelete = () => {
             </FormGroup>
             <FormGroup>
                 <Button color="danger" onClick={() => handleClickDelete()}>Delete</Button>
-                <Button onClick={() => navigate(-1)}>Cancel</Button>
+                <Button className="ms-2" onClick={() => navigate(-1)}>Cancel</Button>
             </FormGroup>
         </Form>
     )

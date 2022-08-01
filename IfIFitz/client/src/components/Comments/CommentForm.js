@@ -36,7 +36,7 @@ export const CommentForm = () => {
     }, [])
 
     return (
-        <Form>
+        <Form className="m-2 noBorderForm">
             <h2>Add a New Comment </h2>
             <FormGroup>
                 <Input type="textarea" 
@@ -47,7 +47,7 @@ export const CommentForm = () => {
                         placeholder="Write your comment here..." />
             </FormGroup>
             <Button color="success" onClick={() => handleClickSave()} disabled={isLoading}>Add Comment</Button>
-            <Button onClick={() => navigate(-1)}>Cancel</Button>
+            <Button className="m-2" onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
 }
