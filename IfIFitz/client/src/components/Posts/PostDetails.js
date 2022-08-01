@@ -83,7 +83,7 @@ export const PostDetails = () => {
             )
         } else {
             return (
-                <><p>No comments for this post yet. You can add the first!</p></>
+                <><p className="ms-3"><b>No comments for this post yet. You can add the first!</b></p></>
             )
         }
     }

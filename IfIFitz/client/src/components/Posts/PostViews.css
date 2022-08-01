@@ -29,3 +29,13 @@
 .commentIcon {
     margin-right: .3rem;
 }
+
+Form {
+    border: .3rem solid black;
+    max-width: 30rem;
+    border-radius: 1rem;
+}
+
+.noBorderForm {
+    border: none;
+}

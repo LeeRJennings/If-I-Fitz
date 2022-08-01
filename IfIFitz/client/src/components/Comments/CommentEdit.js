@@ -42,7 +42,7 @@ export const CommentEdit = () => {
     }, [])
 
     return (
-        <Form>
+        <Form className="m-2 noBorderForm">
             <h2>Edit your comment </h2>
             <FormGroup>
                 <Input type="textarea" 
@@ -53,7 +53,7 @@ export const CommentEdit = () => {
                         placeholder="Write your comment here..." />
             </FormGroup>
             <Button color="primary" onClick={() => handleClickSave()} disabled={isLoading}>Save Edits</Button>
-            <Button onClick={() => navigate(-1)}>Cancel</Button>
+            <Button className="ms-2" onClick={() => navigate(-1)}>Cancel</Button>
         </Form>
     )
 }
