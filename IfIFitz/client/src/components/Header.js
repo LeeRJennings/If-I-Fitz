@@ -35,12 +35,12 @@ export default function Header({ isLoggedIn }) {
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/posts/myPosts">
-                    My Posts
+                    My Boxez
                   </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={RRNavLink} to="/posts/favoritePosts">
-                    Favorites
+                    I Sitz
                   </NavLink>
                 </NavItem>
                 <NavItem>

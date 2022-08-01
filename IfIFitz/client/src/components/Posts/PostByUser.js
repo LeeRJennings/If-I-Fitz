@@ -58,7 +58,7 @@ export const PostByUser = () => {
 
     return (
         <>
-        <Label className="m-0 mb-0 mt-2 ms-3" for="users">See someone else's posts:</Label>{" "}
+        <Label className="m-0 mb-0 mt-2 ms-3" for="users">See other catz boxez:</Label>{" "}
         <select defaultValue="0" name="users" form="categoryForm" onChange={handleFieldChange}>
         <option hidden disabled value="0">--Select a User--</option>
         {allUsers.map(u => (

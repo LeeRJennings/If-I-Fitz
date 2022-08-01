@@ -43,7 +43,7 @@ export const CommentEdit = () => {
 
     return (
         <Form>
-            <h2>Add a New Comment </h2>
+            <h2>Edit your comment </h2>
             <FormGroup>
                 <Input type="textarea" 
                         name="content" 

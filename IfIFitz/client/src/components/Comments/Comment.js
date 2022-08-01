@@ -39,10 +39,18 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
                     {comment.content}
                 </CardText>
                 {comment.userProfileId === user.id ? 
-                    <>
-                    <Button size="sm" color ="primary" onClick={() => navigate(`/posts/editComment/${comment.id}`)}>Edit</Button>
-                    <Button size="sm" color ="danger" onClick={() => toggle()}>Delete</Button>
-                    </>
+                    // <>
+                    // <Button size="sm" color ="primary" onClick={() => navigate(`/posts/editComment/${comment.id}`)}>Edit</Button>
+                    // <Button size="sm" color ="danger" onClick={() => toggle()}>Delete</Button>
+                    // </>
+                    <div className="editAndDelete">
+                        <div type="button" className="bggray2 text-primary commentIcon">
+                            <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/editComment/${comment.id}`)}></i>
+                        </div>
+                        <div type="button" className="bggray2 text-danger commentIcon">
+                            <i className="fa-solid fa-trash-can" onClick={() => toggle()}></i>
+                        </div>
+                    </div>
                     : ""
                 }
             </CardBody>
