@@ -1,10 +1,11 @@
 import { Button, Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { addFavorite, deleteFavorite } from "../../modules/postManager";
 import { dateFormatter } from "../../helpers/dateFormatter";
 
 export const Post = ({ post, user, userFavorites, render, setRender }) => {
     const navigate = useNavigate()
+    const location = useLocation()
 
     const handleAddFavorite = (id) => {
         addFavorite(id)
@@ -45,6 +46,16 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
         }
     }
 
+    const commentButtonDisplay = () => {
+        if (location.pathname === `/posts/${post.id}`) {
+            return ("")
+        } else {
+            return (
+                <Button onClick={() => navigate(`/posts/${post.id}`)}>See Comments</Button>
+            )
+        }
+    }
+
     return (
         <Card className="m-2 cardPost" color="light" style={{width: '20rem'}}>
             <CardBody className="pb-0">
@@ -69,7 +80,7 @@ export const Post = ({ post, user, userFavorites, render, setRender }) => {
                     {buttonDisplay()}
                 </div>
                 <div className="commentButton">
-                    <Button onClick={() => navigate(`/posts/${post.id}`)}>See Comments</Button>
+                    {commentButtonDisplay()}
                 </div>
             </div>
         </Card>

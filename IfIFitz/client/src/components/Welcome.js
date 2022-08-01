@@ -24,7 +24,7 @@ export const Welcome = () => {
                         className="mb-2 text-muted"
                         tag="h6"
                     >
-                        An app for cats to share boxes of all shapes and sizes
+                        An app for catz to share boxez of all shapez and sizez
                     </CardSubtitle>
                 </CardBody>
                 <img

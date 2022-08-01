@@ -30,7 +30,7 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
                 <Button color="secondary" onClick={() => toggle()}>Cancel</Button>
             </ModalFooter>
         </Modal>
-        <Card color="light" style={{width: '30%'}}>
+        <Card className="m-1" color="light" style={{width: '23%'}}>
             <CardBody>
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
                     Posted by: {comment.userProfile.name} <br/> On: {dateFormatter(comment.createdDateTime)}
@@ -39,10 +39,6 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
                     {comment.content}
                 </CardText>
                 {comment.userProfileId === user.id ? 
-                    // <>
-                    // <Button size="sm" color ="primary" onClick={() => navigate(`/posts/editComment/${comment.id}`)}>Edit</Button>
-                    // <Button size="sm" color ="danger" onClick={() => toggle()}>Delete</Button>
-                    // </>
                     <div className="editAndDelete">
                         <div type="button" className="bggray2 text-primary commentIcon">
                             <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/editComment/${comment.id}`)}></i>
