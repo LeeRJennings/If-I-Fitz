@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCurrentUsersFavoritedPosts, getPostById } from "../../modules/postManager"
 import { getCommentsByPostId } from "../../modules/commentManager"
-import { Button } from "reactstrap"
+import { Button, Row } from "reactstrap"
 import { Comment } from "../Comments/Comment"
 import { getLoggedInUser } from "../../modules/authManager"
 import { Post } from "./Post"
@@ -69,13 +69,16 @@ export const PostDetails = () => {
         if (comments.length) {
             return (
                 <>
+                <Row className="ms-1">
                 {comments.map((comment) => (
+                    
                     <Comment comment={comment} 
                              key={comment.id} 
                              user={user} 
                              commentRender={commentRender} 
                              setCommentRender={setCommentRender}/>
-                ))}
+                    ))}
+                </Row>
                 </>
             )
         } else {
@@ -86,14 +89,14 @@ export const PostDetails = () => {
     }
     
     return (
-        <div style={{display: "flex", flexDirection: "column" }}>
+        <div id="postDetails">
             <Post post={post} 
                   user={user} 
                   key={post.id} 
                   userFavorites={userFavorites} 
                   render={render}
                   setRender={setRender} />
-            <Button color="success" size="lg" onClick={() => navigate(`/posts/${post.id}/addComment`)}>Add Comment</Button>
+            <Button className="m-2 ms-2" color="success" size="lg" onClick={() => navigate(`/posts/${post.id}/addComment`)}>Add Comment</Button>
             {commentCheck()}
         </div>
     )

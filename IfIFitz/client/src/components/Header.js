@@ -28,24 +28,24 @@ export default function Header({ isLoggedIn }) {
           <Nav className="mr-auto" navbar>
             {isLoggedIn && (
               <>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/posts">
-                    Home
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/posts/myPosts">
-                    My Boxez
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={RRNavLink} to="/posts/favoritePosts">
-                    I Sitz
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <a aria-current="page" className="nav-link" style={{cursor: "pointer"}} onClick={logout}>Logout</a>
-                </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/posts">
+                  Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/posts/myPosts">
+                  My Boxez
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={RRNavLink} to="/posts/favoritePosts">
+                  I Sitz
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <a aria-current="page" className="nav-link" style={{cursor: "pointer"}} onClick={logout}>Logout</a>
+              </NavItem>
               </>
             )}
             {!isLoggedIn && (

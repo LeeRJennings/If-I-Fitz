@@ -58,7 +58,7 @@ export const FavoritePosts = () => {
 
     return (
         <>
-        <Label className="m-0 mb-0 mt-2 ms-3" for="users">See boxes other catz like to sitz in:</Label>{" "}
+        <Label className="m-0 mb-0 mt-2 ms-3" for="users">See boxez other catz like to sitz in:</Label>{" "}
         <select defaultValue="0" name="users" form="categoryForm" onChange={handleFieldChange}>
         <option hidden disabled value="0">--Select a User--</option>
         {allUsers.map(u => (
