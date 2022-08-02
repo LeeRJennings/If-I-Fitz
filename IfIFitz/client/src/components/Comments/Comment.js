@@ -30,7 +30,7 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
                 <Button color="secondary" onClick={() => toggle()}>Cancel</Button>
             </ModalFooter>
         </Modal>
-        <Card className="m-1" color="light" style={{width: '23%'}}>
+        <Card className="m-1 p-1" color="light" style={{width: '23%'}}>
             <CardBody>
                 <CardSubtitle className="mb-2 text-muted" tag="h6">
                     Posted by: {comment.userProfile.name} <br/> On: {dateFormatter(comment.createdDateTime)}
@@ -38,18 +38,18 @@ export const Comment = ({ comment, user, commentRender, setCommentRender }) => {
                 <CardText>
                     {comment.content}
                 </CardText>
-                {comment.userProfileId === user.id ? 
-                    <div className="editAndDelete">
-                        <div type="button" className="bggray2 text-primary commentIcon">
-                            <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/editComment/${comment.id}`)}></i>
-                        </div>
-                        <div type="button" className="bggray2 text-danger commentIcon">
-                            <i className="fa-solid fa-trash-can" onClick={() => toggle()}></i>
-                        </div>
-                    </div>
-                    : ""
-                }
             </CardBody>
+            {comment.userProfileId === user.id ? 
+                <div className="commentEditAndDelete">
+                    <div type="button" className="bggray2 text-primary commentIcon">
+                        <i className="fa-solid fa-pen-to-square" onClick={() => navigate(`/posts/editComment/${comment.id}`)}></i>
+                    </div>
+                    <div type="button" className="bggray2 text-danger commentIcon">
+                        <i className="fa-solid fa-trash-can" onClick={() => toggle()}></i>
+                    </div>
+                </div>
+                : ""
+            }
         </Card>
         </>
     )

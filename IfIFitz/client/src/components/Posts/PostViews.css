@@ -24,6 +24,12 @@
 
 .editAndDelete {
     display: flex;
+    margin: 0 .5rem .4rem .6rem;
+}
+
+.commentEditAndDelete {
+    display: flex;
+    margin: 0 .5rem .4rem 1rem;
 }
 
 .commentIcon {

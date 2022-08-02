@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCurrentUsersFavoritedPosts, getPostById } from "../../modules/postManager"
-import { getCommentsByPostId } from "../../modules/commentManager"
 import { Button, Row } from "reactstrap"
 import { Comment } from "../Comments/Comment"
 import { getLoggedInUser } from "../../modules/authManager"
@@ -22,9 +21,9 @@ export const PostDetails = () => {
         },
         material: {
             type: ""
-        }
+        },
+        comments: []
     })
-    const [comments, setComments] = useState([])
     const [userFavorites, setUserFavorites] = useState([])
     const [render, setRender] = useState(1)
     const [commentRender, setCommentRender] = useState(1)
@@ -47,14 +46,8 @@ export const PostDetails = () => {
         .then(post => setPost(post))
     }
 
-    const getComments = () => {
-        getCommentsByPostId(id)
-        .then(comments => setComments(comments))
-    }
-
     useEffect(() => {
         getUser()
-        getPost()
     }, [])
 
     useEffect(() => {
@@ -62,15 +55,15 @@ export const PostDetails = () => {
     }, [render])
 
     useEffect(() => {
-        getComments()
+        getPost()
     }, [commentRender])
 
     const commentCheck = () => {
-        if (comments.length) {
+        if (post.comments.length) {
             return (
                 <>
                 <Row className="ms-1">
-                {comments.map((comment) => (
+                {post.comments.map((comment) => (
                     
                     <Comment comment={comment} 
                              key={comment.id} 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IfIFitz.Models
@@ -33,5 +34,7 @@ namespace IfIFitz.Models
         public Size Size { get; set; }
 
         public Material Material { get; set; }
+
+        public List<Comment> Comments { get; set; }
     }
 }
