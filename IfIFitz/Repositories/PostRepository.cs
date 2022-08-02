@@ -76,50 +76,76 @@ namespace IfIFitz.Repositories
                 {
                     cmd.CommandText = @"SELECT p.Id, p.UserProfileId, p.Title, p.Description, p.ImageLocation AS PostImage, p.CreatedDateTime, p.SizeId, p.MaterialId,
 
-	                                           u.Name AS UserName, u.ImageLocation AS UserImage, u.IsActive,
+	                                            u.Name AS UserName, u.ImageLocation AS UserImage, u.IsActive,
 
-	                                           s.Name AS Size, m.Type AS Material 
+	                                            s.Name AS Size, m.Type AS Material, 
+
+		                                        c.Id AS CommentId, c.Content, c.CreatedDateTime AS CommentDate, c.UserProfileId AS CommentUserId, 
+		
+		                                        cu.Name CommentUserName
 
                                         FROM Post p
                                         JOIN UserProfile u ON u.Id = p.UserProfileId
                                         JOIN Size s ON s.Id = p.SizeId
                                         JOIN Material m ON m.Id = p.MaterialId
+                                        LEFT JOIN Comment c ON c.PostId = p.Id
+                                        LEFT JOIN UserProfile cu ON cu.Id = c.UserProfileId
                                         WHERE p.Id = @id";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     using (var reader = cmd.ExecuteReader())
                     {
                         Post post = null;
-                        if (reader.Read())
+                        while (reader.Read())
                         {
-                            post = new Post()
+                            if (post == null)
                             {
-                                Id = DbUtils.GetInt(reader, "Id"),
-                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                                Title = DbUtils.GetString(reader, "Title"),
-                                Description = DbUtils.GetString(reader, "Description"),
-                                ImageLocation = DbUtils.GetString(reader, "PostImage"),
-                                CreatedDateTime = DbUtils.GetDateTime(reader, "CreatedDateTime"),
-                                SizeId = DbUtils.GetInt(reader, "SizeId"),
-                                MaterialId = DbUtils.GetInt(reader, "MaterialId"),
-                                UserProfile = new UserProfile()
+                                post = new Post()
                                 {
-                                    Id = DbUtils.GetInt(reader, "UserProfileId"),
-                                    Name = DbUtils.GetString(reader, "UserName"),
-                                    ImageLocation = DbUtils.GetString(reader, "UserImage"),
-                                    IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
-                                },
-                                Size = new Size()
+                                    Id = DbUtils.GetInt(reader, "Id"),
+                                    UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                    Title = DbUtils.GetString(reader, "Title"),
+                                    Description = DbUtils.GetString(reader, "Description"),
+                                    ImageLocation = DbUtils.GetString(reader, "PostImage"),
+                                    CreatedDateTime = DbUtils.GetDateTime(reader, "CreatedDateTime"),
+                                    SizeId = DbUtils.GetInt(reader, "SizeId"),
+                                    MaterialId = DbUtils.GetInt(reader, "MaterialId"),
+                                    UserProfile = new UserProfile()
+                                    {
+                                        Id = DbUtils.GetInt(reader, "UserProfileId"),
+                                        Name = DbUtils.GetString(reader, "UserName"),
+                                        ImageLocation = DbUtils.GetString(reader, "UserImage"),
+                                        IsActive = reader.GetBoolean(reader.GetOrdinal("IsActive"))
+                                    },
+                                    Size = new Size()
+                                    {
+                                        Id = DbUtils.GetInt(reader, "SizeId"),
+                                        Name = DbUtils.GetString(reader, "Size")
+                                    },
+                                    Material = new Material()
+                                    {
+                                        Id = DbUtils.GetInt(reader, "MaterialId"),
+                                        Type = DbUtils.GetString(reader, "Material")
+                                    },
+                                    Comments = new List<Comment>()
+                                };
+                            }
+                            if (DbUtils.IsNotDbNull(reader, "CommentId"))
+                            {
+                                post.Comments.Add(new Comment()
                                 {
-                                    Id = DbUtils.GetInt(reader, "SizeId"),
-                                    Name = DbUtils.GetString(reader, "Size")
-                                },
-                                Material = new Material()
-                                {
-                                    Id = DbUtils.GetInt(reader, "MaterialId"),
-                                    Type = DbUtils.GetString(reader, "Material")
-                                }
-                            };
+                                    Id = DbUtils.GetInt(reader, "CommentId"),
+                                    PostId = DbUtils.GetInt(reader, "Id"),
+                                    UserProfileId = DbUtils.GetInt(reader, "CommentUserId"),
+                                    Content = DbUtils.GetString(reader, "Content"),
+                                    CreatedDateTime = DbUtils.GetDateTime(reader, "CommentDate"),
+                                    UserProfile = new UserProfile()
+                                    {
+                                        Id = DbUtils.GetInt(reader, "CommentUserId"),
+                                        Name = DbUtils.GetString(reader, "CommentUserName")
+                                    }
+                                });
+                            }
                         }
                         return post;
                     }

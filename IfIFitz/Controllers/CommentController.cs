@@ -22,12 +22,6 @@ namespace IfIFitz.Controllers
             _userProfileRepo = userProfileRepo;
         }
 
-        [HttpGet("Post/{id}")]
-        public IActionResult GetByPostId(int id)
-        {
-            return Ok(_commentRepo.GetCommentsByPostId(id));
-        }
-
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

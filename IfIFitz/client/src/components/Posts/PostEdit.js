@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect } from "react"
 import { updatePost, getPostById } from "../../modules/postManager"
 import { getAllMaterials } from "../../modules/materialManager"
 import { getAllSizes } from "../../modules/sizeManager"
@@ -42,6 +42,7 @@ export const PostEdit = () => {
             setIsLoading(true)
             const newPost = {...post}
             delete newPost.userProfile
+            delete newPost.comments
             updatePost(newPost)
             .then(() => navigate("/posts"))
         }
