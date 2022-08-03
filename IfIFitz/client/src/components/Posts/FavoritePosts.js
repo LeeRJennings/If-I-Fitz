@@ -22,12 +22,9 @@ export const FavoritePosts = () => {
 
     const getUserFavorites = () => {
         getCurrentUsersFavoritedPosts()
-        .then(posts => setUserFavorites(posts))
-    }
-
-    const getPosts = () => {
-        getCurrentUsersFavoritedPosts()
-        .then(posts => setPosts(posts))
+        .then(posts => {
+            setUserFavorites(posts)
+            setPosts(posts)})
     }
 
     const getEveryUser = () => {
@@ -41,7 +38,6 @@ export const FavoritePosts = () => {
     }, [])
 
     useEffect(() => {
-        getPosts()
         getUserFavorites() 
     }, [render])
 
@@ -49,7 +45,7 @@ export const FavoritePosts = () => {
         getFavoritedPostsByUserId(e.target.value)
         .then(posts => {
             if (!posts.length) {
-                window.alert("Sorry, this user doesn't have any posts yet.")
+                window.alert("Sorry, this user doesn't have any favorite posts yet.")
             } else {
                 setPosts(posts)
             }
@@ -70,14 +66,19 @@ export const FavoritePosts = () => {
         <br/>
         <Button className="m-3 mb-0 mt-2" color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
         <Row className="m-2 mt-1">
-            {posts?.map((post) => (
-                <Post post={post} 
-                      key={post.id} 
-                      user={user} 
-                      userFavorites={userFavorites} 
-                      render={render}
-                      setRender={setRender} />
-            ))}
+            {posts.length ? 
+                <>
+                {posts?.map((post) => (
+                    <Post post={post} 
+                          key={post.id} 
+                          user={user} 
+                          userFavorites={userFavorites} 
+                          render={render}
+                          setRender={setRender} />
+                ))}
+                </>
+                : <p>You don't have any favorited boxez yet!</p>
+            } 
         </Row>
         </>
     )
