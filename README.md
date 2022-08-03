@@ -26,3 +26,9 @@ If I Sitz is a collection web app for cats to share all of the various boxes the
 ![App Screenshot](IfIFitz/client/public/images/readme4.png)
 
 ![App Screenshot](IfIFitz/client/public/images/readme5.png)
+
+## Author Info
+**Created by Lee Jennings**
+
+- LinkedIn - [Lee Jennings](https://www.linkedin.com/in/leejennings/)
+- GitHub - [@LeeRJennings](https://github.com/LeeRJennings)
