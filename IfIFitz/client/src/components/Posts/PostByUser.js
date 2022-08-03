@@ -70,14 +70,19 @@ export const PostByUser = () => {
         <br/>
         <Button className="m-3 mb-0 mt-2" color="success" size="lg" onClick={() =>navigate("/posts/create")}>Add Post</Button>
         <Row className="m-2 mt-1">
-        {posts?.map((post) => (
-                <Post post={post} 
-                      key={post.id} 
-                      user={user} 
-                      userFavorites={userFavorites} 
-                      render={render}
-                      setRender={setRender} />
-            ))}
+            {posts.length ? 
+                <>
+                {posts?.map((post) => (
+                    <Post post={post} 
+                          key={post.id} 
+                          user={user} 
+                          userFavorites={userFavorites} 
+                          render={render}
+                          setRender={setRender} />
+                ))}
+                </>
+                : <p>You haven't posted any boxez yet! Use the button above to share your first</p>
+            }
         </Row>
         </>
     )
