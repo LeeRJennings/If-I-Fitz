@@ -25,4 +25,4 @@ If I Sitz is a collection web app for cats to share all of the various boxes the
 
 ![App Screenshot](IfIFitz/client/public/images/readme4.png)
 
-![App Screenshot](IfIFitz/client/public/images/readm5.png)
+![App Screenshot](IfIFitz/client/public/images/readme5.png)
