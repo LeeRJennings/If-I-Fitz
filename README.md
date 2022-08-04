@@ -8,12 +8,10 @@ If I Sitz is a collection web app for cats to share all of the various boxes the
 - React
 - Reactstrap
 - C#/.NET
-- ERD with dbdiagram
+- [ERD with dbdiagram.io](https://dbdiagram.io/d/62cf3a4ecc1bc14cc5b3040a)
 - Canva
 - Swagger
 - Git/GitHub
-
-[ERD on dbdiagram.io](https://dbdiagram.io/d/62cf3a4ecc1bc14cc5b3040a)
 
 ## Screenshots
 
