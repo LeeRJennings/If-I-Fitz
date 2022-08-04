@@ -1,6 +1,15 @@
+import { useEffect, useState } from "react"
 import { Card, CardBody, CardTitle, CardSubtitle } from "reactstrap"
+import { getLoggedInUser } from "../modules/authManager"
 
 export const Welcome = () => {
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        getLoggedInUser()
+        .then(user => setUser(user))
+    }, [])
+    
     return (
         <div style={{display: "flex", justifyContent: "center"}}>        
             <Card
@@ -15,7 +24,7 @@ export const Welcome = () => {
             >
                 <CardBody>
                     <CardTitle tag="h3">
-                        Welcome to:
+                        Welcome {user.name}!
                     </CardTitle>
                     <CardTitle tag="h1">
                         If I Fitz
